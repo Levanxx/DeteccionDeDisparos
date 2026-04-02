@@ -1,7 +1,7 @@
 # DeteccionDeDisparos
 Roles:
-- Leonardo ->
+- Leonardo -> Lider en Machine Learning
 - Miguel -> Desarrollador de Interfaz / Prototipo
-- Jhoan ->
-- Jesus ->
-- Xiomara ->
+- Jhoan -> Responsable de Pruebas e Integración
+- Jesus -> Responsable de datos (DataSet)
+- Xiomara -> Responsable de Documentación Técnica
