@@ -1,5 +1,6 @@
 import os
 from src.data.load_data import cargar_dataset
+from src.features.visualization import mostrar_waveforms_por_clase
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 carpeta = os.path.join(BASE_DIR, "data", "raw")
@@ -12,15 +13,16 @@ if not dataset:
 
 print(f"\nAudios cargados: {len(dataset)}")
 
-for d in dataset[:5]:
+for item in dataset[:10]:
     print("-" * 40)
-    print(f"Archivo: {d['archivo']}")
-    print(f"Etiqueta: {d['label']}")
-    print(f"Sample rate: {d['sample_rate']}")
-    print(f"Muestras: {len(d['audio'])}")
-    print(f"Duración: {d['duracion']:.2f} s")
+    print(f"Archivo: {item['archivo']}")
+    print(f"Clase: {item['clase']}")
+    print(f"Label: {item['label']}")
+    print(f"Sample rate: {item['sample_rate']}")
+    print(f"Muestras: {len(item['audio'])}")
+    print(f"Duración: {item['duracion']:.2f} segundos")
 
-
+'''
 # ================================
 #ANÁLISIS DE DURACIÓN
 # ================================
@@ -43,3 +45,10 @@ print("\n--- Audios muy largos (>10s) ---")
 for d in dataset:
     if d["duracion"] > 10:
         print(d["archivo"], f"{d['duracion']:.2f}s")
+'''
+# ================================
+'''
+#Wareforms por clase
+
+mostrar_waveforms_por_clase(dataset, cantidad=5)
+'''
