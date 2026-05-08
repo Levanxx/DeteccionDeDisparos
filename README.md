@@ -1,216 +1,222 @@
-# DeteccionDeDisparos
-Roles:
-- Leonardo -> Lider en Machine Learning
-- Miguel -> Desarrollador de Interfaz / Prototipo
-- Jhoan -> Responsable de Pruebas e Integración
-- Jesus -> Responsable de datos (DataSet)
-- Xiomara -> Responsable de Documentación Técnica
+# Sistema Inteligente de Detección de Disparos mediante Análisis Acústico con Machine Learning
 
-# 📌 Fases del Proyecto y Roles
+## Descripción del Proyecto
 
-## 🧠 Fase 1: Planificación y Definición del Proyecto
-**Descripción:**
-Se define el problema, los objetivos del sistema y el alcance del proyecto. Además, se establece la estructura del repositorio y la organización del equipo.
+El presente proyecto tiene como finalidad desarrollar un sistema inteligente capaz de detectar sonidos de disparos mediante análisis acústico y técnicas de Machine Learning.
 
-**Actividades:**
-- Definir el problema y objetivo del sistema
-- Establecer objetivos específicos
-- Seleccionar tecnologías
-- Crear estructura del repositorio
-- Asignar roles del equipo
+El sistema analizará archivos de audio para clasificarlos en dos categorías:
 
-**Roles participantes:**
-- Líder de Machine Learning  
-- Responsable de Datos (Dataset)  
-- Responsable de Documentación Técnica  
-- Desarrollador de Interfaz / Prototipo  
-- Responsable de Pruebas e Integración  
+* Disparos
+* No disparos
 
-**Resultado:**
-- Proyecto definido y organizado
-- Repositorio inicial creado
+Para ello, se implementarán procesos de:
+
+* carga y procesamiento de audio
+* extracción de características acústicas
+* entrenamiento de modelos de Machine Learning
+* evaluación de rendimiento
+* desarrollo de un prototipo funcional
+
+Este proyecto aplica conceptos de Inteligencia Artificial, Procesamiento Digital de Señales y Ciencia de Datos en un problema real relacionado con seguridad y monitoreo acústico.
 
 ---
 
-## 📊 Fase 2: Recolección y Organización del Dataset
-**Descripción:**
-Se recopilan audios de disparos y no disparos, y se organizan adecuadamente.
+# Tecnologías Utilizadas
 
-**Actividades:**
-- Buscar y descargar audios
-- Clasificar audios por categorías
-- Verificar formato y calidad
-- Documentar fuentes del dataset
+## Lenguaje Principal
 
-**Roles participantes:**
-- Responsable de Datos (Dataset)  
-- Líder de Machine Learning  
-- Responsable de Documentación Técnica  
+* Python
 
-**Resultado:**
-- Dataset organizado y documentado
+## Librerías
 
----
+* Librosa
+* NumPy
+* Matplotlib
+* Scikit-learn
+* Pandas
+* SoundFile
 
-## 🔍 Fase 3: Exploración y Análisis de Datos
-**Descripción:**
-Se analizan los audios para entender sus características y detectar posibles problemas.
+## Herramientas
 
-**Actividades:**
-- Cargar audios
-- Analizar duración y frecuencia
-- Visualizar formas de onda
-- Detectar errores o inconsistencias
-
-**Roles participantes:**
-- Responsable de Datos (Dataset)  
-- Líder de Machine Learning  
-- Responsable de Documentación Técnica  
-- Responsable de Pruebas e Integración  
-
-**Resultado:**
-- Conocimiento del dataset
-- Identificación de problemas iniciales
+* Git
+* GitHub
+* Visual Studio Code
+* Jira
 
 ---
 
-## 🎧 Fase 4: Preprocesamiento de Audio
-**Descripción:**
-Se preparan los audios para que puedan ser utilizados por el modelo.
+# Arquitectura del Proyecto
 
-**Actividades:**
-- Normalizar audios
-- Ajustar sample rate
-- Recortar o estandarizar duración
-- Limpiar datos
-
-**Roles participantes:**
-- Líder de Machine Learning  
-- Responsable de Pruebas e Integración  
-
-**Resultado:**
-- Audios listos para procesamiento
-
----
-
-## 🧬 Fase 5: Extracción de Características
-**Descripción:**
-Se convierten los audios en datos numéricos mediante características acústicas.
-
-**Actividades:**
-- Extraer MFCC
-- Calcular Zero Crossing Rate
-- Calcular energía (RMS)
-- Obtener spectral centroid
-- Construir dataset tabular
-
-**Roles participantes:**
-- Líder de Machine Learning  
-- Responsable de Pruebas e Integración  
-- Responsable de Documentación Técnica  
-
-**Resultado:**
-- Dataset listo para entrenamiento
+```plaintext
+DeteccionDeDisparos/
+│
+├── data/
+│   ├── processed/
+│   └── raw/
+│       ├── disparos/
+│       └── no_disparos/
+│
+├── src/
+│   ├── app/
+│   ├── data/
+│   │   ├── load_data.py
+│   │   └── preprocess.py
+│   │
+│   ├── features/
+│   │   └── visualization.py
+│   │
+│   ├── models/
+│   └── tests/
+│
+├── main.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
 ---
 
-## 🤖 Fase 6: Entrenamiento del Modelo
-**Descripción:**
-Se entrenan modelos de machine learning para clasificar los audios.
+# Funcionalidades Implementadas
 
-**Actividades:**
-- Dividir datos en entrenamiento y prueba
-- Entrenar modelos (Logistic Regression, Random Forest)
-- Comparar resultados
-- Guardar modelo final
+## Carga de Dataset
 
-**Roles participantes:**
-- Líder de Machine Learning  
-- Responsable de Pruebas e Integración  
-- Responsable de Documentación Técnica  
+* Lectura automática de audios
+* Clasificación automática por carpetas
+* Soporte para múltiples formatos de audio
+* Validación básica de errores
 
-**Resultado:**
-- Modelo entrenado y seleccionado
+## Carga Uniforme de Audio
 
----
+* Conversión de audios a mono
+* Estandarización de sample rate
+* Ajuste automático de duración
+* Padding y trimming automático
 
-## 📈 Fase 7: Evaluación del Modelo
-**Descripción:**
-Se mide el rendimiento del modelo y se analizan sus resultados.
+## Visualización de Waveforms
 
-**Actividades:**
-- Calcular métricas (accuracy, precision, recall, F1)
-- Generar matriz de confusión
-- Comparar modelos
-- Analizar resultados
-
-**Roles participantes:**
-- Líder de Machine Learning  
-- Responsable de Documentación Técnica  
-- Responsable de Pruebas e Integración  
-
-**Resultado:**
-- Evaluación completa del sistema
+* Representación gráfica de señales acústicas
+* Visualización por clases
+* Comparación entre disparos y no disparos
 
 ---
 
-## 🌐 Fase 8: Desarrollo del Prototipo
-**Descripción:**
-Se implementa una interfaz para interactuar con el sistema.
+# Estado Actual del Proyecto
 
-**Actividades:**
-- Crear interfaz (Streamlit)
-- Permitir carga de audio
-- Conectar modelo con la interfaz
-- Mostrar predicción
+## Completado
 
-**Roles participantes:**
-- Desarrollador de Interfaz / Prototipo  
-- Líder de Machine Learning  
-- Responsable de Pruebas e Integración  
+* Estructura inicial del proyecto
+* Configuración del entorno virtual
+* Carga de dataset
+* Carga uniforme de audios
+* Visualización de waveforms
+* Configuración de Git y GitHub
 
-**Resultado:**
-- Prototipo funcional
+## En Desarrollo
 
----
+* Extracción de características acústicas
+* Mel Spectrograms
+* MFCC
+* Entrenamiento de modelos
 
-## 🛠️ Fase 9: Pruebas e Integración
-**Descripción:**
-Se valida el correcto funcionamiento del sistema completo.
+## Futuro
 
-**Actividades:**
-- Probar todos los módulos
-- Verificar ejecución en diferentes entornos
-- Corregir errores
-- Integrar componentes
-
-**Roles participantes:**
-- Responsable de Pruebas e Integración  
-- Líder de Machine Learning  
-- Desarrollador de Interfaz / Prototipo  
-- Responsable de Datos (Dataset)  
-
-**Resultado:**
-- Sistema estable e integrado
+* Streamlit / FastAPI
+* Predicción en tiempo real
+* Optimización de modelos
+* Despliegue
 
 ---
 
-## 📚 Fase 10: Documentación Final y Cierre
-**Descripción:**
-Se completa la documentación del proyecto y se prepara para la entrega.
+# Roles del Equipo
 
-**Actividades:**
-- Completar README
-- Documentar metodología y arquitectura
-- Redactar conclusiones
-- Revisar el repositorio
+| Rol                                   | Integrante | GitHub       |
+| ------------------------------------- | ---------- | ------------ |
+| Líder de Machine Learning             | Leonardo   | Levanxx      |
+| Responsable de Datos (Dataset)        | Jesus      | Yumecry      |
+| Responsable de Documentación Técnica  | Xiomara    | Xiomara306V  |
+| Desarrollador de Interfaz / Prototipo | Miguel     | mofuel       |
+| Responsable de Pruebas e Integración  | Jhoan      | JhoanAronith |
 
-**Roles participantes:**
-- Responsable de Documentación Técnica  
-- Líder de Machine Learning  
-- Responsable de Datos (Dataset)  
-- Desarrollador de Interfaz / Prototipo  
-- Responsable de Pruebas e Integración  
+---
 
-**Resultado:**
-- Proyecto final documentado y listo para presentación
+# Metodología
+
+El proyecto sigue una metodología basada en:
+
+* CRISP-DM
+* Scrum
+* desarrollo iterativo incremental
+
+---
+
+# Instalación
+
+## Clonar repositorio
+
+```bash
+git clone https://github.com/Levanxx/DeteccionDeDisparos.git
+```
+
+## Crear entorno virtual
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Ejecución
+
+```bash
+python main.py
+```
+
+En macOS:
+
+```bash
+python3 main.py
+```
+
+---
+
+# Dataset
+
+El dataset se encuentra organizado en:
+
+```plaintext
+data/raw/disparos
+data/raw/no_disparos
+```
+
+Cada carpeta contiene audios correspondientes a su categoría.
+
+---
+
+# Próximas Implementaciones
+
+* Extracción de MFCC
+* Spectrogramas
+* Chroma Features
+* Zero Crossing Rate
+* Random Forest
+* SVM
+* XGBoost
+* Redes Neuronales
+* Streamlit
+* FastAPI
