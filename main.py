@@ -1,7 +1,10 @@
 import os
 import numpy as np
+
 from src.data.load_data import cargar_dataset
 from src.features.visualization import mostrar_waveforms_por_clase
+from src.preprocessing.save_processed_audio import guardar_audio_procesado
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 carpeta = os.path.join(BASE_DIR, "data", "raw")
@@ -14,6 +17,11 @@ if not dataset:
 
 print(f"\nAudios cargados: {len(dataset)}")
 
+
+# ================================
+# INFORMACIÓN DEL DATASET
+# ================================
+'''
 for item in dataset[:10]:
     amplitud_maxima = np.max(np.abs(item["audio"]))
 
@@ -25,6 +33,25 @@ for item in dataset[:10]:
     print(f"Muestras: {len(item['audio'])}")
     print(f"Duración: {item['duracion']:.2f} segundos")
     print(f"Amplitud máxima: {amplitud_maxima:.4f}")
+'''
+
+# ================================
+# GUARDAR AUDIOS PROCESADOS
+# ================================
+
+print("\nGuardando audios procesados...\n")
+
+for item in dataset:
+
+    guardar_audio_procesado(
+        item["audio"],
+        item["sample_rate"],
+        item["clase"],
+        item["archivo"]
+    )
+
+print("\nTodos los audios fueron guardados correctamente.")
+
 
 '''
 # ================================
@@ -56,4 +83,4 @@ for d in dataset:
 # WAVEFORMS POR CLASE
 # ================================
 
-mostrar_waveforms_por_clase(dataset, cantidad=5)
+# mostrar_waveforms_por_clase(dataset, cantidad=5)
