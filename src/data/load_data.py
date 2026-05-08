@@ -13,6 +13,7 @@ def cargar_audio(ruta, sample_rate=SAMPLE_RATE, duracion=DURACION_OBJETIVO):
     Carga un audio de forma uniforme:
     - Convierte a mono
     - Convierte al mismo sample rate
+    - Normaliza la amplitud
     - Ajusta todos los audios a la misma duración
     """
 
@@ -22,6 +23,12 @@ def cargar_audio(ruta, sample_rate=SAMPLE_RATE, duracion=DURACION_OBJETIVO):
             sr=sample_rate,
             mono=True
         )
+
+        # Normalizar amplitud entre -1 y 1
+        max_amplitud = np.max(np.abs(audio))
+
+        if max_amplitud > 0:
+            audio = audio / max_amplitud
 
         muestras_objetivo = sample_rate * duracion
 

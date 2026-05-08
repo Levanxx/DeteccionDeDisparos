@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from src.data.load_data import cargar_dataset
 from src.features.visualization import mostrar_waveforms_por_clase
 
@@ -14,6 +15,8 @@ if not dataset:
 print(f"\nAudios cargados: {len(dataset)}")
 
 for item in dataset[:10]:
+    amplitud_maxima = np.max(np.abs(item["audio"]))
+
     print("-" * 40)
     print(f"Archivo: {item['archivo']}")
     print(f"Clase: {item['clase']}")
@@ -21,10 +24,11 @@ for item in dataset[:10]:
     print(f"Sample rate: {item['sample_rate']}")
     print(f"Muestras: {len(item['audio'])}")
     print(f"Duración: {item['duracion']:.2f} segundos")
+    print(f"Amplitud máxima: {amplitud_maxima:.4f}")
 
 '''
 # ================================
-#ANÁLISIS DE DURACIÓN
+# ANÁLISIS DE DURACIÓN
 # ================================
 
 duraciones = [d["duracion"] for d in dataset]
@@ -46,9 +50,10 @@ for d in dataset:
     if d["duracion"] > 10:
         print(d["archivo"], f"{d['duracion']:.2f}s")
 '''
+
+
 # ================================
-'''
-#Wareforms por clase
+# WAVEFORMS POR CLASE
+# ================================
 
 mostrar_waveforms_por_clase(dataset, cantidad=5)
-'''
