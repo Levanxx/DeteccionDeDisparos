@@ -9,17 +9,24 @@ El sistema analizará archivos de audio para clasificarlos en dos categorías:
 * Disparos
 * No disparos
 
-Para ello, se implementarán procesos de:
+El proyecto integra conceptos de:
 
-* carga y procesamiento de audio
-* extracción de características acústicas
-* entrenamiento de modelos de Machine Learning
-* evaluación de rendimiento
-* desarrollo de un prototipo funcional
+* Inteligencia Artificial
+* Procesamiento Digital de Señales
+* Machine Learning
+* Ciencia de Datos
+* Ingeniería de Software
+* Automatización de pruebas
 
-Este proyecto aplica conceptos de Inteligencia Artificial, Procesamiento Digital de Señales y Ciencia de Datos en un problema real relacionado con seguridad y monitoreo acústico.
+La solución utiliza procesamiento acústico, extracción de características y modelos de clasificación para identificar eventos sonoros asociados a disparos en distintos entornos.
 
 ---
+# Objetivo
+
+Desarrollar un modelo de clasificación de audio capaz de identificar disparos en grabaciones acústicas mediante técnicas de Machine Learning y procesamiento digital de señales.
+
+---
+
 
 # Tecnologías Utilizadas
 
@@ -51,13 +58,19 @@ Este proyecto aplica conceptos de Inteligencia Artificial, Procesamiento Digital
 DeteccionDeDisparos/
 │
 ├── data/
-│   ├── processed/
-│   └── raw/
-│       ├── disparos/
-│       └── no_disparos/
+│   ├── raw/
+│   └── processed/
+│
+├── docs/
+│   └── documentación técnica
+│
+├── notebooks/
+│   └── experimentación y análisis
+│
+├── reports/
+│   └── reportes y resultados
 │
 ├── src/
-│   ├── app/
 │   ├── data/
 │   │   ├── load_data.py
 │   │   └── preprocess.py
@@ -66,15 +79,122 @@ DeteccionDeDisparos/
 │   │   └── visualization.py
 │   │
 │   ├── models/
-│   └── tests/
+│   └── utils/
+│
+├── tests/
+│   └── pruebas automatizadas
 │
 ├── main.py
 ├── requirements.txt
-├── README.md
-└── .gitignore
+└── README.md
+
 ```
 
 ---
+
+
+# Pipeline del Sistema
+```
+Audio WAV/MP3
+        ↓
+Carga y Validación
+        ↓
+Preprocesamiento
+        ↓
+Extracción de Features
+        ↓
+Features.csv
+        ↓
+Modelo de Machine Learning
+        ↓
+Clasificación Final
+```
+---
+# Procesamiento de Audio
+
+El sistema realiza diferentes etapas de procesamiento acústico:
+
+* Lectura de archivos WAV
+* Conversión mono
+* Estandarización de sample rate
+* Normalización de amplitud
+* Ajuste automático de duración
+* Padding y trimming
+* Extracción de MFCC
+* Generación de espectrogramas
+
+## Features Acústicas Utilizadas
+
+| Feature | Descripción |
+|---|---|
+| MFCC | Representación espectral basada en percepción humana |
+| Spectral Centroid | Centro de masa del espectro |
+| Zero Crossing Rate | Cambios de signo en la señal |
+| Chroma | Representación armónica |
+| RMS Energy | Energía promedio del audio |
+
+---
+
+# PCA / t-SNE de Audios
+
+Se implementó una visualización mediante reducción de dimensionalidad usando PCA y t-SNE para analizar el comportamiento acústico de distintas clases de audio.
+
+## Clases Representadas
+
+| Clase | Color |
+|---|---|
+| Disparos | Rojo |
+| Ruido ambiente | Azul |
+| Vehículos | Verde |
+| Voces humanas | Amarillo |
+| Sirenas | Morado |
+
+Estas técnicas permiten visualizar cómo los sonidos se agrupan acústicamente en clusters diferenciados.
+
+---
+
+# Machine Learning
+
+El sistema utiliza técnicas de Machine Learning para clasificar eventos acústicos.
+
+## Modelos Evaluados
+* Random Forest
+* SVM
+* XGBoost
+* Redes Neuronales
+
+## Métricas de Evaluación
+
+| Métrica | Objetivo |
+|---|---|
+| Accuracy | 90% |
+| Precision | 89% |
+| Recall | 91% |
+| F1-Score | 90% |
+
+---
+
+# Pruebas Automatizadas
+
+El proyecto incorpora pruebas automatizadas para validar el correcto funcionamiento del sistema.
+
+## Scripts de Prueba
+
+| Script | Objetivo |
+|---|---|
+| test_audio_types.py | Validación de formatos de audio |
+| test_audio_not_empty.py | Verificación de audios válidos |
+| test_waveform.py | Validación de waveforms |
+| load_data.py | Verificación de carga de datasets |
+
+## Objetivos de las Pruebas
+* Garantizar integridad de datos
+* Validar procesamiento acústico
+* Detectar errores tempranos
+* Automatizar verificaciones del sistema
+
+---
+
 
 # Funcionalidades Implementadas
 
@@ -102,28 +222,32 @@ DeteccionDeDisparos/
 
 # Estado Actual del Proyecto
 
-## Completado
+## COMPLETADO 
 
-* Estructura inicial del proyecto
-* Configuración del entorno virtual
-* Carga de dataset
-* Carga uniforme de audios
-* Visualización de waveforms
-* Configuración de Git y GitHub
+* Estructura del proyecto
+* Carga de datasets
+* Normalización de audios
+* Waveforms
+* Extracción inicial de features
+* Validación de datos
+* Visualizaciones acústicas
+* Configuración Git/GitHub
+* Pruebas automatizadas
 
-## En Desarrollo
+## EN DESARROLLO 
 
-* Extracción de características acústicas
-* Mel Spectrograms
-* MFCC
-* Entrenamiento de modelos
+* Entrenamiento del modelo
+* Evaluación de métricas
+* Split Train/Test
+* Optimización del pipeline
 
-## Futuro
+## FUTURO 
 
 * Streamlit / FastAPI
 * Predicción en tiempo real
-* Optimización de modelos
-* Despliegue
+* Despliegue en la nube
+* Optimización avanzada del modelo
+* Monitoreo online
 
 ---
 
@@ -146,7 +270,14 @@ El proyecto sigue una metodología basada en:
 * CRISP-DM
 * Scrum
 * desarrollo iterativo incremental
+## Etapas CRISP-DM
 
+1. Comprensión del negocio
+2. Comprensión de datos
+3. Preparación de datos
+4. Modelado
+5. Evaluación
+6. Despliegue
 ---
 
 # Instalación
@@ -197,26 +328,26 @@ python3 main.py
 
 # Dataset
 
-El dataset se encuentra organizado en:
+* UrbanSound8K
+* Gunshot Audio Dataset
+* Firearms Audio Dataset – 58 Gun Types
+* Gunshot/Gunfire Audio Dataset
+
+## Organización
 
 ```plaintext
-data/raw/disparos
-data/raw/no_disparos
+data/raw/disparos/
+data/raw/no_disparos/
 ```
-
-Cada carpeta contiene audios correspondientes a su categoría.
 
 ---
 
 # Próximas Implementaciones
 
-* Extracción de MFCC
-* Spectrogramas
-* Chroma Features
-* Zero Crossing Rate
-* Random Forest
-* SVM
-* XGBoost
-* Redes Neuronales
-* Streamlit
-* FastAPI
+* Integración con Streamlit
+* APIs con FastAPI
+* Predicción en tiempo real
+* Despliegue cloud
+* CNN para audio
+* Detección multi-evento
+* Monitoreo acústico inteligente
