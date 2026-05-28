@@ -125,8 +125,42 @@ with col_main:
     """, unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader(
-        "Selecciona un archivo de audio",
-        type=["wav", "mp3"]
+    "Selecciona un archivo de audio",
+    type=["wav", "mp3"]
+)
+
+# =========================================
+# VALIDACIÓN DE AUDIO
+# =========================================
+
+if uploaded_file is not None:
+
+    # Mostrar mensaje
+    st.success("Archivo cargado correctamente.")
+
+    # Información del archivo
+    file_details = {
+        "Nombre": uploaded_file.name,
+        "Tipo": uploaded_file.type,
+        "Tamaño (KB)": round(uploaded_file.size / 1024, 2)
+    }
+
+    # Tarjeta de información
+    st.markdown("""
+    <div class="card">
+        <p class="metric-label">ARCHIVO CARGADO</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write(file_details)
+
+    # Reproductor de audio
+    st.audio(uploaded_file)
+
+else:
+
+    st.warning(
+        "Aún no se ha cargado ningún archivo de audio."
     )
 
     st.markdown("""
