@@ -1,4 +1,9 @@
 import streamlit as st
+import pandas as pd
+import librosa
+import joblib
+import tempfile
+from pathlib import Path
 
 st.set_page_config(
     page_title="AcousticForensics ML",
@@ -85,6 +90,72 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+MODEL_PATH = Path("models/random_forest_model.pkl")
+SCALER_PATH = Path("models/scaler.pkl")
+
+FEATURE_COLUMNS = [
+    "mfcc_1", "mfcc_2", "mfcc_3", "mfcc_4", "mfcc_5",
+    "mfcc_6", "mfcc_7", "mfcc_8", "mfcc_9", "mfcc_10",
+    "mfcc_11", "mfcc_12", "mfcc_13",
+    "zcr", "rms",
+    "spectral_centroid",
+    "spectral_bandwidth",
+    "spectral_rolloff"
+]
+
+def extraer_features(audio_path):
+    y, sr = librosa.load(audio_path, sr=None)
+
+    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+    zcr = librosa.feature.zero_crossing_rate(y)
+    rms = librosa.feature.rms(y=y)
+    spectral_centroid = librosa.feature.spectral_centroid(y=y, sr=sr)
+    spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+    spectral_rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+
+    features = []
+
+    for i in range(13):
+        features.append(mfcc[i].mean())
+
+    features.append(zcr.mean())
+    features.append(rms.mean())
+    features.append(spectral_centroid.mean())
+    features.append(spectral_bandwidth.mean())
+    features.append(spectral_rolloff.mean())
+
+    return features
+
+
+def predecir_audio(audio_file):
+    model = joblib.load(MODEL_PATH)
+    scaler = joblib.load(SCALER_PATH)
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
+        temp_audio.write(audio_file.read())
+        temp_audio_path = temp_audio.name
+
+    features = extraer_features(temp_audio_path)
+
+    df_features = pd.DataFrame(
+        [features],
+        columns=FEATURE_COLUMNS
+    )
+
+    scaled_features = scaler.transform(df_features)
+
+    scaled_df = pd.DataFrame(
+        scaled_features,
+        columns=FEATURE_COLUMNS
+    )
+
+    prediction = model.predict(scaled_df)[0]
+
+    if prediction == 1:
+        return "DISPARO"
+    else:
+        return "NO DISPARO"
+
 # =========================
 # SIDEBAR
 # =========================
@@ -156,6 +227,13 @@ if uploaded_file is not None:
 
     # Reproductor de audio
     st.audio(uploaded_file)
+    if st.button("Analizar audio"):
+        resultado = predecir_audio(uploaded_file)
+
+        if resultado == "DISPARO":
+            st.error("DISPARO DETECTADO")
+        else:
+            st.success("NO SE DETECTÓ DISPARO")
 
 else:
 
