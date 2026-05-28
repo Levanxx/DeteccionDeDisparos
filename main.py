@@ -9,7 +9,8 @@ from src.features.extract_features import extraer_features
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-carpeta = os.path.join(BASE_DIR, "data", "raw")
+#carpeta = os.path.join(BASE_DIR, "data", "raw")
+carpeta = os.path.join(BASE_DIR, "data", "processed")
 
 dataset = cargar_dataset(carpeta)
 
