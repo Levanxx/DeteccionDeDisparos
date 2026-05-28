@@ -151,10 +151,14 @@ def predecir_audio(audio_file):
 
     prediction = model.predict(scaled_df)[0]
 
+    probabilities = model.predict_proba(scaled_df)[0]
+
+    confidence = max(probabilities) * 100
+
     if prediction == 1:
-        return "DISPARO"
+        return "DISPARO", round(confidence, 2)
     else:
-        return "NO DISPARO"
+        return "NO DISPARO", round(confidence, 2)
 
 # =========================
 # SIDEBAR
@@ -228,7 +232,7 @@ if uploaded_file is not None:
     # Reproductor de audio
     st.audio(uploaded_file)
     if st.button("Analizar audio"):
-        resultado = predecir_audio(uploaded_file)
+        resultado, confianza = predecir_audio(uploaded_file)
 
         if resultado == "DISPARO":
             st.error("DISPARO DETECTADO")
