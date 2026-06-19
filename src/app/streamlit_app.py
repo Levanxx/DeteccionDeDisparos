@@ -130,6 +130,21 @@ def extraer_features(audio_path):
 
     return features
 
+def obtener_ubicacion_por_ip():
+    response = requests.get("http://ip-api.com/json/", timeout=5)
+    if response.status_code == 200:
+        data = response.json()
+        if data.get("status") == "success":
+            return {
+                "lat": data["lat"],
+                "lon": data["lon"],
+                "ciudad": data.get("city", ""),
+                "region": data.get("regionName", ""),
+                "pais": data.get("country", "")
+            }
+    return None
+
+
 
 def predecir_audio(audio_file):
     model = joblib.load(MODEL_PATH)
