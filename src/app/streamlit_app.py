@@ -177,7 +177,7 @@ def convertir_video_a_audio(video_path):
 
     return audio_path
 
-def mostrar_mapa_con_gps():
+def mostrar_mapa_con_gps(confianza, archivo):
     html = """
     <!DOCTYPE html>
     <html>
@@ -222,8 +222,22 @@ def mostrar_mapa_con_gps():
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 function(pos) {
-                    initMap(pos.coords.latitude, pos.coords.longitude);
-                    reverseGeocode(pos.coords.latitude, pos.coords.longitude);
+                    var lat = pos.coords.latitude;
+                    var lon = pos.coords.longitude;
+                    initMap(lat, lon);
+                    reverseGeocode(lat, lon);
+                    fetch("URL_DEL_WEBHOOK", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            resultado: "DISPARO",
+                            confianza: "{{CONFIANZA}}",
+                            latitud: lat,
+                            longitud: lon,
+                            archivo: "{{ARCHIVO}}",
+                            timestamp: new Date().toISOString()
+                        })
+                    });
                 },
                 function(err) {
                     document.getElementById('status').innerHTML = '❌ Permiso de ubicación denegado. Actívalo en tu navegador.';
@@ -238,6 +252,8 @@ def mostrar_mapa_con_gps():
     </body>
     </html>
     """
+    html = html.replace("{{CONFIANZA}}", str(confianza))
+    html = html.replace("{{ARCHIVO}}", archivo)
     st.components.v1.html(html, height=500)
 
 def predecir_audio(uploaded_file):
@@ -371,7 +387,7 @@ with col_main:
                         <p class="small-muted">El navegador solicitará permiso para acceder al GPS.</p>
                     </div>
                     """, unsafe_allow_html=True)
-                    mostrar_mapa_con_gps()
+                    mostrar_mapa_con_gps(confianza, uploaded_file.name)
                 else:
                     st.success(f"NO SE DETECTÓ DISPARO — Confianza: {confianza}%")
 
